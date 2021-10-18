@@ -1,6 +1,6 @@
 
 class Model{
    late int  name;
-   late int price;
+   late double price;
    Model(this.name,this.price,);
 }
