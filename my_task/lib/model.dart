@@ -1,6 +1,6 @@
 
 class Model{
-   late String? name;
-   late String? price;
-   Model({this.name,this.price,});
+   late int  name;
+   late int price;
+   Model(this.name,this.price,);
 }
