@@ -5,21 +5,23 @@ import 'package:my_task/add_data.dart';
 import 'package:my_task/model.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+  final List<Model> users;
+  final Function(Model) onDelete;
+  HomePage({Key? key, required this.users, required this.onDelete})
+      : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  late Model dataList;
- @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    dataList =Model();
+  deleteUser(Model user) {
+    setState(() {
+      widget.onDelete(user);
+    });
   }
-  @override
+
+  List<Model> userList = [];
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff021BFBE),
@@ -40,18 +42,8 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Icon(
-                          Icons.chevron_left,
-                          size: 35,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    margin_10,
+                    margin_50,
+                    const SizedBox(height: 30,),
                     Padding(
                       padding: const EdgeInsets.only(left: 50),
                       child: RichText(
@@ -92,28 +84,68 @@ class _HomePageState extends State<HomePage> {
                     ),
                     color: Colors.white,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(
-                        alignment: Alignment.bottomCenter,
+                      Container(
+                        margin:
+                            const EdgeInsets.only(left: 40, right: 40, top: 20),
                         child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: FloatingActionButton(
-                              backgroundColor: Colors.blue,
-                              child: Icon(Icons.add),
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (context) =>  const DataClass()));
-                              },
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
+                            children: [
+                              // Text(widget.dataList.name.toString()),
+                              // Text(widget.dataList.price.toString()),
+                              // Card(
+                              //   elevation: 5,
+                              //   child: ListTile(
+                              //     leading: Icon(Icons.fastfood),
+                              //     title: Text(widget.dataList.name.toString()),
+                              //     subtitle:
+                              //         Text(widget.dataList.price.toString()),
+                              //     trailing: Icon(Icons.food_bank),
+                              //   ),
+                              // ),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                itemBuilder:
+                                    (BuildContext context, int index) => Card(
+                                  elevation: 8,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(16),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Fruits Cost : ${widget.users[index].name}',
+                                              style: TextStyle(fontSize: 12),
+                                            ),
+                                            Text(
+                                              'Fruits total price: ${widget.
+                                              users[index].price}',
+                                              style: TextStyle(fontSize: 12),
+                                            ),
+                                          ],
+                                        ),
+                                        IconButton(
+                                          icon: Icon(Icons.delete),
+                                          onPressed: () => widget.
+                                          onDelete(widget.users[index]),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                itemCount: widget.users.length,
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                      Column(
-                        children:   const [
-
-                        ],
                       ),
                     ],
                   ),
