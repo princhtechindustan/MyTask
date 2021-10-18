@@ -305,7 +305,7 @@ class _DataClassState extends State<DataClass> {
     //       .push(MaterialPageRoute(builder: (context) =>    HomePage(dataList: dataList)));
     // }
     final firstValue = int.parse(_firstController.text);
-    final secondValue = int.parse(_firstController.text);
+    final secondValue = double.parse(_valueController.text);
     addUser(Model(firstValue, secondValue));
     Navigator.push(
       context,
