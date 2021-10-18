@@ -12,7 +12,7 @@ class DataClass extends StatefulWidget {
 }
 
 class _DataClassState extends State<DataClass> {
-  late Model dataList;
+  // late Model dataList;
   final _fruits = ['Apple', 'Mango', 'Pine Apple'];
   var selected = 'Apple';
   GlobalKey key1 = GlobalKey();
@@ -20,12 +20,27 @@ class _DataClassState extends State<DataClass> {
   final TextEditingController _firstController = TextEditingController();
   final TextEditingController _valueController = TextEditingController();
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-     dataList= Model();
+  addUser(Model user) {
+    setState(() {
+      userList.add(user);
+    });
   }
+
+  deleteUser(Model user) {
+    setState(() {
+      // userList.removeWhere((_user) => _user.name == user.name);
+      userList.removeWhere((element) => element.name==user.name);
+    });
+  }
+
+  List<Model> userList = [];
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //    dataList= Model();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -282,11 +297,22 @@ class _DataClassState extends State<DataClass> {
   );
 
   void goToHomeScreen() {
-    dataList.name = _firstController.text.toString();
-    dataList.price = _valueController.text.toString();
-    print("${dataList.name}");
-    print("${dataList.price}");
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) =>  const HomePage()));
+    //   dataList.name = _firstController.text.toString();
+    //   dataList.price = _valueController.text.toString();
+    //   print("${dataList.name}");
+    //   print("${dataList.price}");
+    //   Navigator.of(context)
+    //       .push(MaterialPageRoute(builder: (context) =>    HomePage(dataList: dataList)));
+    // }
+    final firstValue = int.parse(_firstController.text);
+    final secondValue = int.parse(_firstController.text);
+    addUser(Model(firstValue, secondValue));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            HomePage(users: userList, onDelete: deleteUser),
+      ),
+    );
   }
 }
