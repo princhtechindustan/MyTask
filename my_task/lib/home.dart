@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       widget.onDelete(user);
     });
   }
- late int price= 50;
+
 
   int count=0;
   void increment(){
@@ -156,13 +156,18 @@ class _HomePageState extends State<HomePage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Fruits Cost : ${widget.users[index].quantity}',
+                                          'Fruits Cost : ${widget.users[index].quantity+count}',
                                           style: const TextStyle(fontSize: 12),
                                         ),
+                                        // Text(
+                                        //   'Fruits total price: ${widget.users[index].price}',
+                                        //   style: const TextStyle(fontSize: 12),
+                                        // ),
                                         Text(
-                                          'Fruits total price: ${widget.users[index].price}',
+                                          'Fruits total price: ${widget.users[index].price*count+50}',
                                           style: const TextStyle(fontSize: 12),
                                         ),
+
                                       ],
                                     ),
                                     Column(
@@ -211,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                                               child: Center(
                                                 // child: Text(""
                                                 //     "${widget.users[index].quantity}"),
-                                                child: Text("${count}"),
+                                                child: Text('${widget.users[index].quantity+count}'),
                                               ),
                                             ),
                                             weightMargin_10,
