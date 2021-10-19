@@ -1,3 +1,7 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,7 +11,8 @@ import 'package:my_task/model.dart';
 class HomePage extends StatefulWidget {
   final List<Model> users;
   final Function(Model) onDelete;
-   HomePage({Key? key, required this.users, required this.onDelete})
+
+  HomePage({Key? key, required this.users, required this.onDelete})
       : super(key: key);
 
   // HomePage({Key? key, })
@@ -21,6 +26,19 @@ class _HomePageState extends State<HomePage> {
   deleteUser(Model user) {
     setState(() {
       widget.onDelete(user);
+    });
+  }
+ late int price= 50;
+
+  int count=0;
+  void increment(){
+    setState(() {
+      count++;
+    });
+  }
+  void decrement(){
+    setState(() {
+      count--;
     });
   }
   @override
@@ -82,10 +100,46 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
-                      margin: const EdgeInsets.all(50),
+                      margin: const EdgeInsets.all(30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // ListView.builder(
+                          //   shrinkWrap: true,
+                          //   itemBuilder: (BuildContext context, int index) =>
+                          //       Card(
+                          //     elevation: 8,
+                          //     child: Padding(
+                          //       padding: const EdgeInsets.all(16),
+                          //       child: Row(
+                          //         mainAxisAlignment:
+                          //             MainAxisAlignment.spaceBetween,
+                          //         children: <Widget>[
+                          //           Column(
+                          //             crossAxisAlignment:
+                          //                 CrossAxisAlignment.start,
+                          //             children: [
+                          //               Text(
+                          //                 'Fruits Cost : ${widget.users[index].name}',
+                          //                 style: const TextStyle(fontSize: 12),
+                          //               ),
+                          //               Text(
+                          //                 'Fruits total price: ${widget.users[index].price}',
+                          //                 style: const TextStyle(fontSize: 12),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //           IconButton(
+                          //             icon: const Icon(Icons.delete),
+                          //             onPressed: () =>
+                          //                 widget.onDelete(widget.users[index]),
+                          //           )
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
+                          //   itemCount: widget.users.length,
+                          // ),
                           ListView.builder(
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, int index) =>
@@ -102,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Fruits Cost : ${widget.users[index].name}',
+                                          'Fruits Cost : ${widget.users[index].quantity}',
                                           style: const TextStyle(fontSize: 12),
                                         ),
                                         Text(
@@ -111,53 +165,90 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ],
                                     ),
-                                    IconButton(
-                                      icon: const Icon(Icons.delete),
-                                      onPressed: () =>
-                                          widget.onDelete(widget.users[index]),
-                                    )
+                                    Column(
+                                      children: [
+                                        IconButton(
+                                          icon: const Icon(Icons.delete),
+                                          onPressed: () => widget
+                                              .onDelete(widget.users[index]),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              decoration: const BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(5),
+                                                ),
+                                                color: Colors.teal,
+                                              ),
+                                              child: InkWell(
+                                                child: Icon(
+                                                  Icons.remove,
+                                                  color: Colors.white,
+                                                ),
+                                                onTap: (){
+                                                  decrement();},
+                                              ),
+                                            ),
+                                            // FloatingActionButton.small(
+                                            //     onPressed: (){
+                                            //       decrement();
+                                            //     },
+                                            //   child: Icon(Icons.remove),
+                                            //     ),
+                                            weightMargin_10,
+                                            Container(
+                                              width: 30,
+                                              height: 25,
+                                              decoration: const BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(5),
+                                                ),
+                                                color: Colors.teal,
+                                              ),
+                                              child: Center(
+                                                // child: Text(""
+                                                //     "${widget.users[index].quantity}"),
+                                                child: Text("${count}"),
+                                              ),
+                                            ),
+                                            weightMargin_10,
+                                            Container(
+                                              decoration: const BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(5),
+                                                ),
+                                                color: Colors.teal,
+                                              ),
+                                              child: InkWell(
+                                                child: Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                ),
+                                                onTap: () {
+                                                  increment();
+                                                },
+                                              ),
+                                            ),
+                                            // FloatingActionButton.small(
+                                            //
+                                            //   onPressed: (){
+                                            //     increment();
+                                            //   },
+                                            //   child: Icon(Icons.add),
+                                            // ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
                             ),
                             itemCount: widget.users.length,
                           ),
-                          // ListView.builder(
-                          //   shrinkWrap: true,
-                          //   itemBuilder: (BuildContext context, int index) =>
-                          //       Card(
-                          //         elevation: 8,
-                          //         child: Padding(
-                          //           padding: const EdgeInsets.all(16),
-                          //           child: Row(
-                          //             mainAxisAlignment:
-                          //             MainAxisAlignment.spaceBetween,
-                          //             children: <Widget>[
-                          //               Column(
-                          //                 crossAxisAlignment:
-                          //                 CrossAxisAlignment.start,
-                          //                 children: [
-                          //                   Text(
-                          //                     'Fruits Cost : ${userList[index].name}',
-                          //                     style: const TextStyle(fontSize: 12),
-                          //                   ),
-                          //                   Text(
-                          //                     'Fruits total price: ${userList[index].price}',
-                          //                     style: const TextStyle(fontSize: 12),
-                          //                   ),
-                          //                 ],
-                          //               ),
-                          //               IconButton(
-                          //                 icon: const Icon(Icons.delete),
-                          //                 onPressed: () =>
-                          //                     widget.onDelete(userList[index]),
-                          //               )
-                          //             ],
-                          //           ),
-                          //         ),
-                          //       ),
-                          //   itemCount: userList.length,
-                          // ),
                         ],
                       ),
                     ),
@@ -190,6 +281,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // void refreshData() {
+  //   widget.users;
+  // }
+
+  // FutureOr onGoBack(dynamic value) {
+  //   refreshData();
+  //   setState(() {});
+  // }
   var margin_30 = const SizedBox(
     height: 30,
   );
@@ -225,5 +324,4 @@ class _HomePageState extends State<HomePage> {
   var weightMargin_30 = const SizedBox(
     width: 30,
   );
-
 }
