@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_task/home.dart';
+import 'package:my_task/home.dart';
 
+import 'home.dart';
 import 'model.dart';
 
 class DataClass extends StatefulWidget {
-  const DataClass({Key? key}) : super(key: key);
+  // final List<Model> users;
+  // final Function(Model) onDelete;
+  // DataClass(Key? key,  this.users, this.onDelete) : super(key: key);
+  DataClass({Key? key,}) : super(key: key);
 
   @override
   _DataClassState createState() => _DataClassState();
@@ -23,13 +28,14 @@ class _DataClassState extends State<DataClass> {
   addUser(Model user) {
     setState(() {
       userList.add(user);
+
     });
   }
 
   deleteUser(Model user) {
     setState(() {
       // userList.removeWhere((_user) => _user.name == user.name);
-      userList.removeWhere((element) => element.name==user.name);
+      userList.removeWhere((element) => element.name == user.name);
     });
   }
 
@@ -307,12 +313,18 @@ class _DataClassState extends State<DataClass> {
     final firstValue = int.parse(_firstController.text);
     final secondValue = double.parse(_valueController.text);
     addUser(Model(firstValue, secondValue));
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            HomePage(users: userList, onDelete: deleteUser),
-      ),
-    );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => HomePage(users: userList, onDelete: deleteUser),
+    //   ),
+    // );
+
+    Navigator.of(context).pop(
+        MaterialPageRoute(builder: (context) => HomePage(
+          users: userList, onDelete: deleteUser)));
+    print("${userList.length}");
+
+
   }
 }
