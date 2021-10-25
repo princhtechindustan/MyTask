@@ -317,9 +317,8 @@ class _DataClassState extends State<DataClass> {
 
     // Navigator.pop(context,[userList,deleteUser]);
     // Navigator.of(context).pop({userList,deleteUser});
-    Navigator.pop(context, userList);
+    Navigator.pop(context,userList);
     print("Add---------------------->${userList.length}");
-
 
   }
 }
