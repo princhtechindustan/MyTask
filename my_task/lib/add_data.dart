@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_task/home.dart';
-import 'package:my_task/home.dart';
-
 import 'home.dart';
 import 'model.dart';
 
 class DataClass extends StatefulWidget {
-  // final List<Model> users;
-  // final Function(Model) onDelete;
-  // DataClass(Key? key,  this.users, this.onDelete) : super(key: key);
-  DataClass({Key? key,}) : super(key: key);
+  const DataClass({Key? key,}) : super(key: key);
 
   @override
   _DataClassState createState() => _DataClassState();
@@ -28,14 +23,13 @@ class _DataClassState extends State<DataClass> {
   addUser(Model user) {
     setState(() {
       userList.add(user);
-
     });
   }
 
   deleteUser(Model user) {
     setState(() {
       // userList.removeWhere((_user) => _user.name == user.name);
-      userList.removeWhere((element) => element.name == user.name);
+      userList.removeWhere((element) => element.quantity == user.quantity);
     });
   }
 
@@ -56,6 +50,7 @@ class _DataClassState extends State<DataClass> {
         title: const Text("Add Data in to the filed"),
         backgroundColor: const Color(0xff7CA2F4),
         elevation: 1,
+        automaticallyImplyLeading: false,
       ),
       body: Stack(
         children: [
@@ -133,7 +128,7 @@ class _DataClassState extends State<DataClass> {
                                       height: 30,
                                       child: Center(
                                         child: Text(
-                                          "Price of ${selected}",
+                                          "Price of $selected",
                                           style: const TextStyle(
                                             color: Colors.white,
                                           ),
@@ -215,7 +210,7 @@ class _DataClassState extends State<DataClass> {
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(15),
                                       ),
-                                      color: Color(0xff06d9170),
+                                      color: Color(0xff6d9170),
                                     ),
                                     width: 300,
                                     height: 45,
@@ -320,10 +315,10 @@ class _DataClassState extends State<DataClass> {
     //   ),
     // );
 
-    Navigator.of(context).pop(
-        MaterialPageRoute(builder: (context) => HomePage(
-          users: userList, onDelete: deleteUser)));
-    print("${userList.length}");
+    // Navigator.pop(context,[userList,deleteUser]);
+    // Navigator.of(context).pop({userList,deleteUser});
+    Navigator.pop(context, userList);
+    print("Add---------------------->${userList.length}");
 
 
   }
