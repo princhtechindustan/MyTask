@@ -1,6 +1,5 @@
-
 class Model{
-   late int  name;
+   late int  quantity;
    late double price;
-   Model(this.name,this.price,);
+   Model(this.quantity,this.price,);
 }
